@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabon Hotel - Edit Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>GABON</h2>
+                <span>HOTEL</span>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-item" onclick="window.location.href='dashboard.html'"><i
+                        class="fa-solid fa-shapes"></i> <span>Dashboard</span></div>
+
+                <div class="menu-category">Rooms</div>
+                <div class="menu-item active" onclick="window.location.href='rooms-list.html'"><i
+                        class="fa-solid fa-bed"></i> <span>Rooms</span></div>
+                <div class="menu-item"><i class="fa-solid fa-bell-concierge"></i> <span>Services</span></div>
+
+                <div class="menu-category">Bookings</div>
+                <div class="menu-item" onclick="window.location.href='bookings-list.html'"><i
+                        class="fa-solid fa-calendar-check"></i> <span>View Bookings</span></div>
+                <div class="menu-item" onclick="window.location.href='bookings-edit.html'"><i
+                        class="fa-solid fa-calendar-plus"></i> <span>Create A Booking</span></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span>Log Out</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Edit Room</h2>
+                <button class="btn"
+                    style="padding: 10px 20px; font-size: 0.9rem; background-color: #7b946f; border-color: #7b946f;">+
+                    Add a Room</button>
+            </div>
+
+            <form>
+                <!-- Basic Info -->
+                <div class="form-section">
+                    <h3 class="form-title">Basic Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" value="Some Title Here">
+                        </div>
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select class="form-control">
+                                <option>King</option>
+                                <option>Queen</option>
+                                <option>Twin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Rooms</label>
+                            <input type="text" class="form-control" value="100-200">
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control" value="$ 500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="form-section">
+                    <h3 class="form-title">Service Information</h3>
+                    <div class="checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox"> Room Service
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox"> Wake Up
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" checked> Laundry
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox"> Heating
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox"> Vault
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-title">Images</h3>
+                    <div class="image-edit-grid">
+                        <div class="image-edit-item">
+                            <img src="images/hero_bg.png" alt="Room">
+                        </div>
+                        <div class="image-edit-item">
+                            <img src="images/feature_about.png" alt="Room">
+                        </div>
+                        <div class="image-edit-item">
+                            <img src="images/hero_bg.png" alt="Room">
+                        </div>
+                        <div class="image-edit-item">
+                            <img src="images/feature_about.png" alt="Room">
+                        </div>
+                        <div class="image-edit-item">
+                            <img src="images/hero_bg.png" alt="Room">
+                        </div>
+
+                        <div class="add-image-btn">
+                            <span>+ Add an image</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn"
+                        style="margin-top: 20px; background-color: #7b946f; border-color: #7b946f;">+ Add an
+                        image</button>
+                </div>
+
+                <!-- Footer Actions -->
+                <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+                    <button type="button" class="btn" style="background-color: #7b946f; border-color: #7b946f;"><i
+                            class="fa-regular fa-floppy-disk"></i> Save Changes</button>
+                    <button type="button" class="btn" style="background-color: #dc3545; border-color: #dc3545;"><i
+                            class="fa-regular fa-trash-can"></i> Delete Room</button>
+                </div>
+
+            </form>
+        </main>
+    </div>
+
+</body>
+
+</html>

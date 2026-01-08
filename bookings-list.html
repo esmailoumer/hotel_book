@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabon Hotel - Admin Bookings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>GABON</h2>
+                <span>HOTEL</span>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-shapes"></i> <span>Dashboard</span></div>
+                <div class="menu-category">Rooms</div>
+                <div class="menu-item" onclick="window.location.href='rooms-list.html'"><i class="fa-solid fa-bed"></i> <span>Rooms</span></div>
+                <div class="menu-category">Bookings</div>
+                <div class="menu-item active" onclick="window.location.href='bookings-list.html'"><i class="fa-solid fa-calendar-check"></i> <span>View Bookings</span></div>
+            </div>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Bookings (<span id="booking-count">0</span>)</h2>
+                <div class="admin-actions">
+                    <div class="admin-search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search bookings...">
+                    </div>
+                    <a href="bookings-edit.html" class="btn" style="padding: 10px 20px; background-color: #7b946f;">+ Add a Booking</a>
+                </div>
+            </div>
+
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Room ID</th>
+                            <th>Check-In</th>
+                            <th>Check-Out</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-tbody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', fetchBookings);
+
+        function fetchBookings() {
+            // Ensure this URL matches your Booking Servlet @WebServlet path
+            fetch('api/bookings')
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    const tbody = document.getElementById('bookings-tbody');
+                    document.getElementById('booking-count').innerText = data.length;
+                    
+                    tbody.innerHTML = '';
+
+                    data.forEach(booking => {
+                        const row = document.createElement('tr');
+                        
+                        // Map status to your CSS classes (confirmed, pending, cancelled)
+                        let statusClass = 'pending';
+                        if(booking.status.toLowerCase() === 'paid') statusClass = 'confirmed';
+                        if(booking.status.toLowerCase() === 'failed') statusClass = 'cancelled';
+
+                        row.innerHTML = `
+                            <td>${booking.id}</td>
+                            <td>${booking.user_id}</td>
+                            <td>${booking.room_id}</td>
+                            <td>${booking.check_in}</td>
+                            <td>${booking.check_out}</td>
+                            <td>$${booking.total_price}</td>
+                            <td><span class="status-label ${statusClass}">${booking.status}</span></td>
+                            <td>
+                                <a href="bookings-edit.html?id=${booking.id}" class="action-btn">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                                <span class="action-btn delete">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </span>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(err => {
+                    console.error("Fetch error:", err);
+                    document.getElementById('bookings-tbody').innerHTML = `<tr><td colspan="8" style="text-align:center; color:red;">Failed to load bookings.</td></tr>`;
+                });
+        }
+
+        
+    </script>
+</body>
+</html>
