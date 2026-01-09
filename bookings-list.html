@@ -1,109 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gabon Hotel - Admin Bookings</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body>
-
+  <body>
     <div class="admin-container">
-        <aside class="sidebar">
-            <div class="sidebar-logo">
-                <h2>GABON</h2>
-                <span>HOTEL</span>
-            </div>
-            <div class="sidebar-menu">
-                <div class="menu-item" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-shapes"></i> <span>Dashboard</span></div>
-                <div class="menu-category">Rooms</div>
-                <div class="menu-item" onclick="window.location.href='rooms-list.html'"><i class="fa-solid fa-bed"></i> <span>Rooms</span></div>
-                <div class="menu-category">Bookings</div>
-                <div class="menu-item active" onclick="window.location.href='bookings-list.html'"><i class="fa-solid fa-calendar-check"></i> <span>View Bookings</span></div>
-            </div>
-        </aside>
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <h2>GABON</h2>
+          <span>HOTEL</span>
+        </div>
+        <div class="sidebar-menu">
+          <div
+            class="menu-item"
+            onclick="window.location.href='dashboard.html'"
+          >
+            <i class="fa-solid fa-shapes"></i> <span>Dashboard</span>
+          </div>
+          <div class="menu-category">Rooms</div>
+          <div
+            class="menu-item"
+            onclick="window.location.href='rooms-list.html'"
+          >
+            <i class="fa-solid fa-bed"></i> <span>Rooms</span>
+          </div>
+          <div class="menu-category">Bookings</div>
+          <div
+            class="menu-item active"
+            onclick="window.location.href='bookings-list.html'"
+          >
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>View Bookings</span>
+          </div>
+        </div>
 
-        <main class="admin-content">
-            <div class="admin-header">
-                <h2>Bookings (<span id="booking-count">0</span>)</h2>
-                <div class="admin-actions">
-                    <div class="admin-search-bar">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="searchInput" placeholder="Search by Room Number..." onkeypress="if(event.key === 'Enter') performSearch()">
-                    </div>
-                    <a href="bookings-edit.html" class="btn" style="padding: 10px 20px; background-color: #7b946f;">+ Add a Booking</a>
-                </div>
-            </div>
+        <div class="sidebar-footer">
+          <a href="login.html"> <span>Log Out</span></a>
+        </div>
+      </aside>
 
-            <div class="admin-table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User ID</th>
-                            <th>Room Number</th>
-                            <th>Check-In</th>
-                            <th>Check-Out</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bookings-tbody">
-                        <tr><td colspan="8" style="text-align:center;">Loading bookings...</td></tr>
-                    </tbody>
-                </table>
+      <main class="admin-content">
+        <div class="admin-header">
+          <h2>Bookings (<span id="booking-count">0</span>)</h2>
+          <div class="admin-actions">
+            <div class="admin-search-bar">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by Room Number..."
+                onkeypress="if(event.key === 'Enter') performSearch()"
+              />
             </div>
-        </main>
+            <a
+              href="booking.html"
+              class="btn"
+              style="padding: 10px 20px; background-color: #7b946f"
+              >+ Add a Booking</a
+            >
+          </div>
+        </div>
+
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Room Number</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-tbody">
+              <tr>
+                <td colspan="8" style="text-align: center">
+                  Loading bookings...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
 
     <script>
-        // Start fetching as soon as the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchBookings();
-        });
+      // Start fetching as soon as the page loads
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchBookings();
+      });
 
-        /**
-         * 1. Fetch Bookings 
-         * Hits the servlet at 'api/bookings' or the search endpoint
-         */
-        function fetchBookings(url = 'api/bookings') {
-            console.log("Fetching from:", url);
-            
-            fetch(url)
-                .then(res => {
-                    if (!res.ok) throw new Error("Server responded with status: " + res.status);
-                    return res.json();
-                })
-                .then(data => {
-                    const tbody = document.getElementById('bookings-tbody');
-                    const countSpan = document.getElementById('booking-count');
-                    
-                    countSpan.innerText = data.length;
-                    tbody.innerHTML = '';
+      /**
+       * 1. Fetch Bookings
+       * Hits the servlet at 'api/bookings' or the search endpoint
+       */
+      function fetchBookings(url = "api/bookings") {
+        console.log("Fetching from:", url);
 
-                    if (data.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No bookings found.</td></tr>`;
-                        return;
-                    }
+        fetch(url)
+          .then((res) => {
+            if (!res.ok)
+              throw new Error("Server responded with status: " + res.status);
+            return res.json();
+          })
+          .then((data) => {
+            const tbody = document.getElementById("bookings-tbody");
+            const countSpan = document.getElementById("booking-count");
 
-                    data.forEach(booking => {
-                        const row = document.createElement('tr');
-                        
-                        // Status badge logic
-                        let statusClass = 'pending';
-                        const status = booking.status ? booking.status.toLowerCase() : 'pending';
-                        if (status === 'paid' || status === 'confirmed') statusClass = 'confirmed';
-                        if (status === 'failed' || status === 'cancelled') statusClass = 'cancelled';
+            countSpan.innerText = data.length;
+            tbody.innerHTML = "";
 
-                        // Ensure these keys match your Servlet's JSON output
-                        row.innerHTML = `
+            if (data.length === 0) {
+              tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No bookings found.</td></tr>`;
+              return;
+            }
+
+            data.forEach((booking) => {
+              const row = document.createElement("tr");
+
+              // Status badge logic
+              let statusClass = "pending";
+              const status = booking.status
+                ? booking.status.toLowerCase()
+                : "pending";
+              if (status === "paid" || status === "confirmed")
+                statusClass = "confirmed";
+              if (status === "failed" || status === "cancelled")
+                statusClass = "cancelled";
+
+              // Ensure these keys match your Servlet's JSON output
+              row.innerHTML = `
                             <td>${booking.id}</td>
                             <td>${booking.user_id}</td>
                             <td>${booking.room_number}</td>
@@ -120,45 +163,48 @@
                                 </span>
                             </td>
                         `;
-                        tbody.appendChild(row);
-                    });
-                })
-                .catch(err => {
-                    console.error("Fetch Error:", err);
-                    document.getElementById('bookings-tbody').innerHTML = 
-                        `<tr><td colspan="8" style="text-align:center; color:red;">
+              tbody.appendChild(row);
+            });
+          })
+          .catch((err) => {
+            console.error("Fetch Error:", err);
+            document.getElementById(
+              "bookings-tbody"
+            ).innerHTML = `<tr><td colspan="8" style="text-align:center; color:red;">
                             Failed to load bookings. Please check the console (F12).
                         </td></tr>`;
-                });
-        }
+          });
+      }
 
-        /**
-         * 2. Search Functionality
-         */
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.trim();
-            // If empty, fetch list. If not, use search servlet.
-            const url = query ? `api/bookings/search?room_number=${encodeURIComponent(query)}` : 'api/bookings';
-            fetchBookings(url);
-        }
+      /**
+       * 2. Search Functionality
+       */
+      function performSearch() {
+        const query = document.getElementById("searchInput").value.trim();
+        // If empty, fetch list. If not, use search servlet.
+        const url = query
+          ? `api/bookings/search?room_number=${encodeURIComponent(query)}`
+          : "api/bookings";
+        fetchBookings(url);
+      }
 
-        /**
-         * 3. Delete Functionality
-         */
-        function deleteBooking(id) {
-            if (confirm(`Are you sure you want to delete Booking #${id}?`)) {
-                fetch(`api/bookings/delete?id=${id}`)
-                    .then(res => {
-                        if (res.ok) {
-                            alert("Booking deleted successfully.");
-                            fetchBookings(); // Refresh the list automatically
-                        } else {
-                            alert("Error: Record could not be deleted.");
-                        }
-                    })
-                    .catch(err => console.error("Delete error:", err));
-            }
+      /**
+       * 3. Delete Functionality
+       */
+      function deleteBooking(id) {
+        if (confirm(`Are you sure you want to delete Booking #${id}?`)) {
+          fetch(`api/bookings/delete?id=${id}`)
+            .then((res) => {
+              if (res.ok) {
+                alert("Booking deleted successfully.");
+                fetchBookings(); // Refresh the list automatically
+              } else {
+                alert("Error: Record could not be deleted.");
+              }
+            })
+            .catch((err) => console.error("Delete error:", err));
         }
+      }
     </script>
-</body>
+  </body>
 </html>

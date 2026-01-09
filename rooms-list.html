@@ -25,14 +25,14 @@
                 <div class="menu-item" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-shapes"></i> <span>Dashboard</span></div>
                 <div class="menu-category">Rooms</div>
                 <div class="menu-item active" onclick="window.location.href='rooms-list.html'"><i class="fa-solid fa-bed"></i> <span>Rooms</span></div>
-                <div class="menu-item"><i class="fa-solid fa-bell-concierge"></i> <span>Services</span></div>
+               
                 <div class="menu-category">Bookings</div>
                 <div class="menu-item" onclick="window.location.href='bookings-list.html'"><i class="fa-solid fa-calendar-check"></i> <span>View Bookings</span></div>
-                <div class="menu-item" onclick="window.location.href='bookings-edit.html'"><i class="fa-solid fa-calendar-plus"></i> <span>Create A Booking</span></div>
             </div>
 
             <div class="sidebar-footer">
-                <span>Log Out</span>
+                <a href="login.html">    <span>Log Out</span></a>
+            
             </div>
         </aside>
 
@@ -86,11 +86,11 @@
                     // Convert single search object to array if necessary
                     const rooms = Array.isArray(data) ? data : [data];
                     
-                    countSpan.innerText = rooms.length;
+                    countSpan.innerText = rooms.length; //innerText ignores the tag of the thml
                     tbody.innerHTML = '';
 
                     rooms.forEach(room => {
-                        const row = document.createElement('tr');
+                        const row = document.createElement('tr'); // creates one row
                         const statusClass = room.status.toLowerCase() === 'available' ? 'confirmed' : 'cancelled';
 
                         row.innerHTML = `
