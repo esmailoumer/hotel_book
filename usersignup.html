@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabon Hotel - Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Logo / Header -->
+    <div class="text-center" style="margin: 20px 0 10px 0">
+      <h1
+        style="
+          font-family: 'Playfair Display', serif;
+          font-size: 2rem;
+          color: var(--text-dark);
+        "
+      >
+        GABON<br />
+        <span
+          style="
+            font-size: 1rem;
+            letter-spacing: 5px;
+            font-family: var(--font-body);
+          "
+          >Hotel</span
+        >
+      </h1>
+    </div>
+
+    <!-- Sign-Up Form -->
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Create Account</h2>
+        <form id="signupForm">
+          <input type="text" placeholder="Full Name" required />
+          <input type="text" placeholder="Username" required />
+          <input type="email" placeholder="Email" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
+          <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="userlogin.html">Login</a></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-bottom text-center">
+          <div>© 2025 Gabon Hotels. All rights reserved</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript: Password Match Check -->
+    <script>
+      const form = document.getElementById("signupForm");
+      form.addEventListener("submit", function (e) {
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          e.preventDefault();
+          alert("Passwords do not match! Please check and try again.");
+        }
+      });
+    </script>
+  </body>
+</html>

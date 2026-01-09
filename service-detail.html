@@ -1,302 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabon Hotel - Service Details</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabon Hotel - Booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Specific Detail Page Styles */
-        .detail-header {
-            padding-top: 140px;
-            padding-bottom: 60px;
-        }
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-        .service-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .service-info h1 {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .gallery-grid img {
-            width: 100%;
-            height: 200px;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
-
-        .gallery-grid img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Booking Widget (Floating overlap effect) */
-        .booking-widget-container {
-            position: relative;
-            z-index: 10;
-        }
-
-        .booking-widget {
-            background-color: #6B7F5E;
-            /* Slightly lighter green for widget */
-            padding: 40px;
-            border-radius: var(--border-radius);
-            color: #fff;
-            margin-top: -100px;
-            /* Overlap effect if desired, or just layout */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            /* Based on screenshot design style */
-        }
-
-        .date-picker {
-            background: #fff;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .date-picker div {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .people-picker {
-            background: #fff;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 30px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .book-btn {
-            width: 100%;
-            background: transparent;
-            border: 2px solid #fff;
-            color: #fff;
-            padding: 15px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .book-btn:hover {
-            background: #fff;
-            color: var(--primary-color);
-        }
-
-        .amenities {
-            margin-top: 60px;
-        }
-
-        .amenities h3 {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-        }
-
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .amenity {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.95rem;
-        }
-
-        /* Breadcrumbs or Back links */
-        .top-links {
-            display: flex;
-            gap: 30px;
+  <body>
+    <nav class="navbar container" style="position: relative">
+      <a href="index.html" class="logo"
+        >Gabon<br /><span
+          style="
             font-size: 0.8rem;
-            color: var(--text-gray);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        @media(max-width: 900px) {
-            .service-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .booking-widget {
-                width: 100%;
-                margin-top: 0;
-            }
-
-            .service-info h1 {
-                font-size: 2.5rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Navbar (Darker for visibility on this page maybe? No, consistent) -->
-    <nav class="navbar container" style="position: relative;">
-        <a href="index.html" class="logo">Gabon<br><span
-                style="font-size: 0.8rem; letter-spacing: 4px; display: block; text-align: center;">Hotel</span></a>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About us</a>
-            <a href="index.html#explore">Explore</a>
-            <a href="#contact">Contact Us</a>
-            <a href="#" class="btn-outline" style="padding: 8px 20px; border-radius: 4px;">Book Your Stay</a>
-        </div>
+            letter-spacing: 4px;
+            display: block;
+            text-align: center;
+          "
+          >Hotel</span
+        ></a
+      >
     </nav>
 
     <div class="container detail-header">
-        <div class="top-links">
-            <span>Link Item</span>
-            <span>Link Item</span>
-            <span>Link Item</span>
+      <div class="top-links">
+        <span>Book Your Stay</span>
+      </div>
+
+      <div class="service-layout">
+        <div class="left-col">
+          <div class="service-info">
+            <h1>BOOK A ROOM</h1>
+            <p
+              style="
+                color: var(--text-gray);
+                margin-bottom: 40px;
+                line-height: 1.8;
+              "
+            >
+              F
+            </p>
+          </div>
+
+          <div class="booking-widget-container">
+            <div class="booking-widget">
+              <h3 style="color: #fff">Booking Form</h3>
+              <form>
+                <div class="form-group">
+                  <label for="guest-name">Full Name</label>
+                  <input
+                    type="text"
+                    id="guest-name"
+                    placeholder="Your Full Name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="guest-amount">Number of Guests</label>
+                  <input
+                    type="number"
+                    id="guest-amount"
+                    placeholder="Number of Guests"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="room-type">Room Type</label>
+                  <select id="room-type" required class="form-control">
+                    <option value="">Select a room type</option>
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                    <option value="deluxe">Deluxe</option>
+                    <option value="suite">Suite</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="checkin">Check-in Date</label>
+                  <input type="date" id="checkin" required />
+                </div>
+                <div class="form-group">
+                  <label for="checkout">Check-out Date</label>
+                  <input type="date" id="checkout" required />
+                </div>
+                <div class="form-group">
+                  <label for="special-request">Special Requests</label>
+                  <textarea
+                    id="special-request"
+                    rows="4"
+                    placeholder="Any special requests"
+                  ></textarea>
+                </div>
+                <button type="submit" class="book-btn">Book Now</button>
+              </form>
+            </div>
+          </div>
         </div>
 
-        <div class="service-layout">
-            <!-- Left Side: Text and Booking Widget -->
-            <div class="left-col">
-                <div class="service-info">
-                    <h1>PRESIDENTIAL SUITE</h1>
-                    <p style="color: var(--text-gray); margin-bottom: 40px; line-height: 1.8;">
-                        Find the right room, check real-time availability, and confirm your booking in seconds. Stay
-                        where comfort meets convenience. Find the right room, check real-time availability, and confirm
-                        your booking in seconds.
-                    </p>
-                </div>
-
-                <div class="booking-widget-container">
-                    <div class="booking-widget">
-                        <h3 style="color: #fff; margin-bottom: 20px;">Book Now</h3>
-
-                        <div class="date-picker">
-                            <div>
-                                <i class="fa-regular fa-calendar"></i>
-                                <span>Check in date<br><small style="color: #999;">Pick a date</small></span>
-                            </div>
-                            <span>— to —</span>
-                            <div>
-                                <i class="fa-regular fa-calendar"></i>
-                                <span>Check out date<br><small style="color: #999;">Pick a date</small></span>
-                            </div>
-                        </div>
-
-                        <div class="people-picker">
-                            <i class="fa-solid fa-user-group"></i>
-                            <span>Number of people<br><small style="color: #999;">01</small></span>
-                        </div>
-
-                        <button class="book-btn">Book</button>
-                        <div class="text-center"
-                            style="margin-top: 15px; font-size: 0.8rem; text-decoration: underline; opacity: 0.8;">Or
-                            you can call to book</div>
-                    </div>
-                </div>
-
-                <div class="amenities">
-                    <h3>Included with the room</h3>
-                    <div class="amenities-grid">
-                        <div class="amenity"><i class="fa-solid fa-bed"></i> King size bed</div>
-                        <div class="amenity"><i class="fa-solid fa-shirt"></i> Free Laundry</div>
-                        <div class="amenity"><i class="fa-solid fa-bell-concierge"></i> Room service</div>
-                        <div class="amenity"><i class="fa-solid fa-wifi"></i> Free Internet Access</div>
-                        <div class="amenity"><i class="fa-solid fa-clock"></i> Wake up service</div>
-                        <div class="amenity"><i class="fa-solid fa-temperature-arrow-up"></i> Heating</div>
-                        <div class="amenity"><i class="fa-solid fa-vault"></i> Vault</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side: Gallery -->
-            <div class="right-col">
-                <div class="gallery-grid">
-                    <img src="images/room_suite.png" alt="Detail 1">
-                    <img src="images/room_deluxe.png" alt="Detail 2">
-                    <img src="images/room_standard.png" alt="Detail 3">
-                    <img src="images/hero_bg.png" alt="Detail 4">
-                    <img src="images/feature_about.png" alt="Detail 5"
-                        style="grid-column: span 2; height: 300px;">
-                </div>
-            </div>
+        <div class="right-col">
+          <div class="gallery-grid">
+            <img src="images/room_suite.png" alt="Suite Room" />
+            <img src="images/room_deluxe.png" alt="Deluxe Room" />
+            <img src="images/room_standard.png" alt="Standard Room" />
+            <img src="images/hero_bg.png" alt="Hotel View" />
+            <img
+              src="images/feature_about.png"
+              alt="Amenities"
+              style="grid-column: span 2; height: 300px"
+            />
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Footer -->
     <footer id="contact">
-        <div class="container">
-            <div class="text-center" style="margin-bottom: 40px;">
-                <h2 style="color: #fff; font-size: 3rem;">GABON<br><span
-                        style="font-size: 1rem; letter-spacing: 5px; font-family: var(--font-body);">Hotel</span></h2>
-            </div>
-
-            <div class="footer-content">
-                <div class="contact-section">
-                    <h3>Contact Us</h3>
-                    <form class="contact-form">
-                        <input type="text" placeholder="Full Name">
-                        <input type="email" placeholder="Email">
-                        <textarea rows="4" placeholder="Message"></textarea>
-                        <button type="button">Contact Us</button>
-                    </form>
-                </div>
-                <div class="map-section">
-                    <img src="images/map.png" alt="Map Location">
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="links">
-                    <a href="#" style="margin-right: 20px;">Home</a>
-                    <a href="#" style="margin-right: 20px;">About us</a>
-                    <a href="#">Explore</a>
-                </div>
-                <div>
-                    <i class="fa-brands fa-instagram" style="margin-right: 15px;"></i>
-                    <i class="fa-brands fa-twitter" style="margin-right: 15px;"></i>
-                    <i class="fa-brands fa-facebook"></i>
-                </div>
-                <div>
-                    © 2025 Gabon Hotels. All rights reserved
-                </div>
-            </div>
+      <div class="container">
+        <div class="footer-bottom">
+          <div>© 2025 Gabon Hotels. All rights reserved</div>
         </div>
+      </div>
     </footer>
-
-</body>
-
+  </body>
 </html>

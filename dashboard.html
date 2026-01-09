@@ -1,48 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>User List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabon Hotel - Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h2>Users</h2>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>GABON</h2>
+                <span>HOTEL</span>
+            </div>
 
-<table border="1" id="usersTable">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-    </tr>
-</table>
+            <div class="sidebar-menu">
+                <div class="menu-item active" onclick="window.location.href='dashboard.html'"><i
+                        class="fa-solid fa-shapes"></i> <span>Dashboard</span></div>
 
-<script>
-// Remove /hotel_book/ and just use the relative path to the servlet
-fetch('api/rooms') 
-    .then(res => {
-        if (!res.ok) throw new Error("HTTP error " + res.status);
-        return res.json();
-    })
-    .then(data => {
-        const table = document.getElementById('usersTable');
-        // Clear existing rows (except header) if necessary
-        // table.innerHTML = '<tr><th>ID</th><th>Name</th>...</tr>'; 
+                <div class="menu-category">Rooms</div>
+                <div class="menu-item" onclick="window.location.href='rooms-list.html'"><i class="fa-solid fa-bed"></i>
+                    <span>Rooms</span></div>
+                <div class="menu-item"><i class="fa-solid fa-bell-concierge"></i> <span>Services</span></div>
 
-        data.forEach(user => {
-            const row = table.insertRow(-1); // Better way to add rows
-            row.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-                <td>${user.role}</td>
-            `;
-        });
-    })
-    .catch(err => {
-        console.error("Fetch error:", err);
-        alert("Failed to load users. Check console for details.");
-    });
-</script>
+                <div class="menu-category">Bookings</div>
+                <div class="menu-item" onclick="window.location.href='bookings-list.html'"><i
+                        class="fa-solid fa-calendar-check"></i> <span>View Bookings</span></div>
+                <div class="menu-item" onclick="window.location.href='bookings-edit.html'"><i
+                        class="fa-solid fa-calendar-plus"></i> <span>Create A Booking</span></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span>Log Out</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h2>Overview</h2>
+                <div style="color: var(--text-gray); font-size: 0.9rem;">Today, 30 Dec 2025</div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span>Total Revenue</span>
+                        <h3>$45,231</h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span>Active Bookings</span>
+                        <h3>24</h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span>Total Guests</span>
+                        <h3>1,205</h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span>Occupancy Rate</span>
+                        <h3>82%</h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Split View -->
+            <div class="dashboard-split">
+
+                <!-- Recent Bookings -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Bookings</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="admin-table-container" style="box-shadow: none; padding: 0;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th style="padding-left: 0;">Guest</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 0;">
+                                        <div style="font-weight: 600;">John Doe</div>
+                                        <div style="font-size: 0.8rem; color: #999;">Dec 12 - Dec 15</div>
+                                    </td>
+                                    <td>Deluxe Ocean</td>
+                                    <td><span class="status-label confirmed">Confirmed</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 0;">
+                                        <div style="font-weight: 600;">Sarah Smith</div>
+                                        <div style="font-size: 0.8rem; color: #999;">Dec 14 - Dec 20</div>
+                                    </td>
+                                    <td>Pres. Suite</td>
+                                    <td><span class="status-label pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 0;">
+                                        <div style="font-weight: 600;">Michael Brown</div>
+                                        <div style="font-size: 0.8rem; color: #999;">Dec 10 - Dec 12</div>
+                                    </td>
+                                    <td>Standard</td>
+                                    <td><span class="status-label cancelled">Cancelled</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 0;">
+                                        <div style="font-weight: 600;">Emily Davis</div>
+                                        <div style="font-size: 0.8rem; color: #999;">Dec 18 - Dec 22</div>
+                                    </td>
+                                    <td>Deluxe Ocean</td>
+                                    <td><span class="status-label confirmed">Confirmed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Room Status -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Room Status</h3>
+                        <a href="rooms-list.html" class="view-all">Manage</a>
+                    </div>
+                    <div class="room-status-list">
+                        <div class="room-status-item">
+                            <div class="room-info">
+                                <h4>Presidential Suite</h4>
+                                <small>Available</small>
+                            </div>
+                            <span class="room-count">2/5</span>
+                        </div>
+                        <div style="height: 1px; background: #f0f0f0;"></div>
+                        <div class="room-status-item">
+                            <div class="room-info">
+                                <h4>Deluxe Ocean View</h4>
+                                <small>Available</small>
+                            </div>
+                            <span class="room-count">12/20</span>
+                        </div>
+                        <div style="height: 1px; background: #f0f0f0;"></div>
+                        <div class="room-status-item">
+                            <div class="room-info">
+                                <h4>Standard Comfort</h4>
+                                <small>Available</small>
+                            </div>
+                            <span class="room-count">28/45</span>
+                        </div>
+                        <div style="height: 1px; background: #f0f0f0;"></div>
+                        <div class="room-status-item">
+                            <div class="room-info">
+                                <h4>Twin Room</h4>
+                                <small>Available</small>
+                            </div>
+                            <span class="room-count">5/10</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
 
 </body>
+
 </html>

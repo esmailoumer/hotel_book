@@ -912,3 +912,229 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+.auth-container {
+    display: flex;
+    margin-top: 0;
+    padding-top: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--secondary-color);
+}
+
+.auth-box {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.auth-box h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.auth-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-box input {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: var(--transition);
+}
+
+.auth-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(85, 107, 47, 0.2);
+}
+
+.auth-box button {
+    padding: 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.auth-box button:hover {
+    background-color: var(--accent-color);
+}
+
+.auth-box p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.auth-box a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .auth-box {
+        padding: 30px 20px;
+    }
+}
+
+/* Booking Page / Service Detail Specific Styles */
+.detail-header {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+.service-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.service-info h1 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.02);
+}
+
+/* Booking Widget */
+.booking-widget-container {
+    position: relative;
+    z-index: 10;
+}
+
+.booking-widget {
+    background-color: #6B7F5E;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    color: #fff;
+    margin-top: -100px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+}
+
+.booking-widget h3 {
+    margin-bottom: 20px;
+}
+
+.booking-widget .form-group {
+    margin-bottom: 15px;
+}
+
+.booking-widget input,
+.booking-widget textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.booking-widget input:focus,
+.booking-widget textarea:focus {
+    outline: none;
+    background-color: #fff;
+}
+
+.booking-widget .book-btn {
+    width: 100%;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 15px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.booking-widget .book-btn:hover {
+    background: #fff;
+    color: var(--primary-color);
+}
+
+.amenities {
+    margin-top: 60px;
+}
+
+.amenities h3 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.amenity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.95rem;
+}
+
+/* Breadcrumbs or Back links */
+.top-links {
+    display: flex;
+    gap: 30px;
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .service-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-widget {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .service-info h1 {
+        font-size: 2.5rem;
+    }
+}

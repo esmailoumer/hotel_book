@@ -14,7 +14,7 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
-            System.out.println(e);;
+            System.out.println(e);
         }
     }
 
