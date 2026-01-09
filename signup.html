@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabon Hotel - Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .error-msg {
+        color: #d9534f;
+        background-color: #f2dede;
+        border: 1px solid #ebccd1;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        display: none;
+        font-size: 0.9rem;
+      }
+      select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: 'Inter', sans-serif;
+        background-color: white;
+      }
+      .admin-secret-container {
+        display: none;
+        animation: fadeIn 0.3s ease-in;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-center" style="margin: 20px 0 10px 0">
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-dark);">
+        GABON<br />
+        <span style="font-size: 1rem; letter-spacing: 5px; font-family: var(--font-body);">Hotel</span>
+      </h1>
+    </div>
+
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Create Account</h2>
+        
+        <div id="statusMessage" class="error-msg"></div>
+
+        <form id="signupForm" action="signup" method="POST">
+          <input type="text" name="name" placeholder="Username" required />
+          <input type="email" name="email" placeholder="Email" required />
+          
+          <input type="password" name="password" id="password" placeholder="Password" required />
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+          <div id="adminSecretDiv" class="admin-secret-container">
+            <input type="password" name="companyPassword" id="companyPassword" placeholder="Enter Company Password" />
+          </div>
+          <select name="role" id="roleSelect" required>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+          <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </div>
+
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-bottom text-center">
+          <div>© 2025 Gabon Hotels. All rights reserved</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const roleSelect = document.getElementById("roleSelect");
+      const adminSecretDiv = document.getElementById("adminSecretDiv");
+      const companyPassInput = document.getElementById("companyPassword");
+      const messageBox = document.getElementById("statusMessage");
+
+      // 1. Toggle Company Password Visibility
+      roleSelect.addEventListener("change", function() {
+        if (this.value === "ADMIN") {
+          adminSecretDiv.style.display = "block";
+          companyPassInput.setAttribute("required", "required");
+        } else {
+          adminSecretDiv.style.display = "none";
+          companyPassInput.removeAttribute("required");
+          companyPassInput.value = "";
+        }
+      });
+
+      // 2. Check URL for status from Servlet on Load
+      window.onload = function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const status = urlParams.get('status');
+
+          if (status === 'exists') {
+              messageBox.innerText = "This email is already registered.";
+              messageBox.style.display = "block";
+          } else if (status === 'wrong_secret') {
+              messageBox.innerText = "Invalid Company Password. Admin access denied.";
+              messageBox.style.display = "block";
+          } else if (status === 'error') {
+              messageBox.innerText = "An error occurred. Please try again.";
+              messageBox.style.display = "block";
+          }
+      };
+
+      // 3. Client-side Validation (Passwords and Secret)
+      const form = document.getElementById("signupForm");
+      form.addEventListener("submit", function (e) {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Check Match
+        if (password !== confirmPassword) {
+          e.preventDefault(); 
+          messageBox.innerText = "Passwords do not match!";
+          messageBox.style.display = "block";
+          return;
+        }
+
+        // Check Admin Company Password
+        if (roleSelect.value === "ADMIN" && companyPassInput.value !== "gabon@123") {
+          e.preventDefault();
+          messageBox.innerText = "Incorrect Company Password!";
+          messageBox.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>

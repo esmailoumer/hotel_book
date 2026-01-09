@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import test.util.DBConnection;
 
 public class Booking {
@@ -87,6 +86,8 @@ public class Booking {
         }
     }
 
+    
+
     public List<Map<String, Object>> searchByRoomNumber(String roomNumber) {
         List<Map<String, Object>> bookings = new ArrayList<>();
         // Join allows us to filter by r.room_number
@@ -148,5 +149,61 @@ public class Booking {
             e.printStackTrace();
         }
         return "Unknown Guest"; // Fallback if not found
+    }
+
+   public String bookRoomByType(int userId, String roomType, String checkIn, String checkOut, String specialRequest) {
+        // Room uses 'Available', 'Maintainance', 'Occupied'
+        String findRoomSql = "SELECT id, base_price FROM rooms WHERE room_type = ? AND status = 'Available' LIMIT 1";
+        
+        // Booking uses 'PAID', 'PENDING', 'FAILED', 'CANCELLED'
+        String insertBookingSql = "INSERT INTO bookings (user_id, room_id, check_in, check_out, total_price, status, special_request) VALUES (?, ?, ?, ?, ?, 'PENDING', ?)";
+        
+        // Update the specific room to 'Occupied'
+        String updateRoomSql = "UPDATE rooms SET status = 'Occupied' WHERE id = ?";
+
+        Connection conn = null;
+        try {
+            conn = DBConnection.getConnection();
+            conn.setAutoCommit(false); // Start Transaction
+
+            int roomId = -1;
+            double price = 0.0;
+
+            // 1. Find the available room
+            try (PreparedStatement ps1 = conn.prepareStatement(findRoomSql)) {
+                ps1.setString(1, roomType);
+                ResultSet rs = ps1.executeQuery();
+                if (rs.next()) {
+                    roomId = rs.getInt("id");
+                    price = rs.getDouble("base_price");
+                }
+            }
+
+            if (roomId == -1) return "no_available_rooms";
+
+            // 2. Insert into booking (guests uses default 1 as set in DB)
+            try (PreparedStatement ps2 = conn.prepareStatement(insertBookingSql)) {
+                ps2.setInt(1, userId);
+                ps2.setInt(2, roomId);
+                ps2.setString(3, checkIn);
+                ps2.setString(4, checkOut);
+                ps2.setDouble(5, price); 
+                ps2.setString(6, specialRequest);
+                ps2.executeUpdate();
+            }
+
+            // 3. Set room to Occupied
+            try (PreparedStatement ps3 = conn.prepareStatement(updateRoomSql)) {
+                ps3.setInt(1, roomId);
+                ps3.executeUpdate();
+            }
+
+            conn.commit(); 
+            return "success";
+        } catch (Exception e) {
+            if (conn != null) try { conn.rollback(); } catch (Exception ex) {}
+            e.printStackTrace();
+            return "error";
+        }
     }
 }

@@ -37,12 +37,6 @@
         <a href="#about">About us</a>
         <a href="#explore">Explore</a>
         <a href="#contact">Contact Us</a>
-        <a
-          href="service-detail.html"
-          class="btn-outline"
-          style="padding: 8px 20px; border-radius: 4px"
-          >Book Your Stay</a
-        >
       </div>
     </nav>
 
@@ -56,11 +50,8 @@
         </p>
 
         <div style="margin-bottom: 30px">
-          <a href="service-detail.html" class="btn">Book Your Stay</a>
-          <a
-            href="service-detail.html"
-            class="btn btn-outline"
-            style="margin-left: 10px"
+          <a href="booking.html" class="btn">Book Your Stay</a>
+          <a href="#explore" class="btn btn-outline" style="margin-left: 10px"
             >Browse Rooms</a
           >
         </div>
@@ -161,8 +152,19 @@
         <h2 class="section-title">
           Explore Our Services To Find The Perfect Vacation For You
         </h2>
-        <div class="service-grid">
-          <!-- Card 1 -->
+        <div
+          class="service-grid"
+          style="
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+          "
+        >
+      
           <div class="service-card">
             <img src="images/room_suite.png" alt="Suite" />
             <div class="service-content">
@@ -173,7 +175,7 @@
               </p>
               <div class="service-footer">
                 <span class="price">$450/night</span>
-                <a href="service-detail.html" class="btn">Book</a>
+                <a href="booking.html" class="btn">Book</a>
               </div>
             </div>
           </div>
@@ -189,7 +191,7 @@
               </p>
               <div class="service-footer">
                 <span class="price">$280/night</span>
-                <a href="service-detail.html" class="btn">Book</a>
+                <a href="booking.html" class="btn">Book</a>
               </div>
             </div>
           </div>
@@ -199,23 +201,29 @@
             <img src="images/room_standard.png" alt="Standard Room" />
             <div class="service-content">
               <h3>Standard Comfort</h3>
-              <p>
-                Perfect for the solo traveler or couple looking for a cozy
-                retreat.
-              </p>
+              <p>Perfect for the solo traveler looking for a cozy retreat.</p>
               <div class="service-footer">
                 <span class="price">$150/night</span>
-                <a href="service-detail.html" class="btn">Book</a>
+                <a href="booking.html" class="btn">Book</a>
+              </div>
+            </div>
+          </div>
+
+    
+          <div class="service-card">
+            <img src="images/room_standard.png" alt="Double Room" />
+            <div class="service-content">
+              <h3>Double Comfort</h3>
+              <p>Perfect for the couple looking for a cozy retreat.</p>
+              <div class="service-footer">
+                <span class="price">$150/night</span>
+                <a href="booking.html" class="btn">Book</a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="text-center" style="margin-top: 40px">
-          <a href="#" style="font-weight: 600; text-decoration: underline"
-            >Explore More -----></a
-          >
-        </div>
+       
       </div>
     </section>
 
@@ -238,16 +246,11 @@
         <div class="footer-content">
           <div class="contact-section">
             <h3>Contact Us</h3>
-            <form class="contact-form">
-              <input type="text" placeholder="Full Name" />
-              <input type="email" placeholder="Email" />
-              <textarea rows="4" placeholder="Message"></textarea>
-              <button type="button">Contact Us</button>
-            </form>
+            <p>Email: <a href="mailto:info@gabonhotel.com" style="color:#fff; text-decoration: underline;">info@gabonhotel.com</a></p>
+        <p>Phone: <a href="tel:+1234567890" style="color:#fff; text-decoration: underline;">+1 234 567 890</a></p>
+     
           </div>
-          <div class="map-section">
-            <img src="images/map.png" alt="Map Location" />
-          </div>
+          
         </div>
 
         <div class="footer-bottom">

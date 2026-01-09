@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabon Hotel - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .error-msg { color: #d9534f; background: #f2dede; border: 1px solid #ebccd1; padding: 10px; margin-bottom: 15px; border-radius: 4px; display: none; font-size: 0.9rem; }
+      .success-msg { color: #3c763d; background: #dff0d8; border: 1px solid #d6e9c6; padding: 10px; margin-bottom: 15px; border-radius: 4px; display: none; font-size: 0.9rem; }
+      
+      select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: 'Inter', sans-serif;
+        background-color: white;
+      }
+
+      .admin-secret-container {
+        display: none; /* Hidden by default */
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-center" style="margin: 20px 0 10px 0;">
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-dark);">
+        GABON<br />
+        <span style="font-size: 1rem; letter-spacing: 5px; font-family: var(--font-body);">
+          Hotel
+        </span>
+      </h1>
+    </div>
+
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Login</h2>
+
+        <div id="errorAlert" class="error-msg"></div>
+        <div id="successAlert" class="success-msg">Account created! Please login.</div>
+
+        <form id="loginForm" action="login" method="POST">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          
+        
+          <div id="adminSecretDiv" class="admin-secret-container">
+            <input type="password" name="companyPassword" id="companyPassword" placeholder="Enter Company Password" />
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+      </div>
+    </div>
+
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-bottom text-center">
+          <div>© 2025 Gabon Hotels. All rights reserved</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const roleSelect = document.getElementById("roleSelect");
+      const adminSecretDiv = document.getElementById("adminSecretDiv");
+      const companyPassInput = document.getElementById("companyPassword");
+      const errorAlert = document.getElementById('errorAlert');
+      const successAlert = document.getElementById('successAlert');
+
+      // 1. Toggle Company Password Visibility
+      roleSelect.addEventListener("change", function() {
+        if (this.value === "ADMIN") {
+          adminSecretDiv.style.display = "block";
+          companyPassInput.setAttribute("required", "required");
+        } else {
+          adminSecretDiv.style.display = "none";
+          companyPassInput.removeAttribute("required");
+          companyPassInput.value = "";
+        }
+      });
+
+      // 2. Client-side validation for Admin Secret
+      document.getElementById("loginForm").addEventListener("submit", function(e) {
+        if (roleSelect.value === "ADMIN" && companyPassInput.value !== "gabon@123") {
+          e.preventDefault();
+          errorAlert.innerText = "Incorrect Company Password!";
+          errorAlert.style.display = "block";
+        }
+      });
+
+      // 3. Handle URL Status/Error params
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('status') === 'success') {
+        successAlert.style.display = 'block';
+      }
+      
+      const error = urlParams.get('error');
+      if (error === 'invalid') {
+        errorAlert.innerText = "Invalid email or password.";
+        errorAlert.style.display = 'block';
+      } else if (error === 'wrong_secret') {
+        errorAlert.innerText = "Invalid Company Password.";
+        errorAlert.style.display = 'block';
+      } else if (error === 'access_denied') {
+        errorAlert.innerText = "You do not have permission to access the Admin area.";
+        errorAlert.style.display = 'block';
+      }
+    </script>
+  </body>
+</html>

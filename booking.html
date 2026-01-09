@@ -15,6 +15,18 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        display: none;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+      }
+      .alert-success { background-color: #dff0d8; color: #3c763d; border: 1px solid #d6e9c6; }
+      .alert-error { background-color: #f2dede; color: #a94442; border: 1px solid #ebccd1; }
+    </style>
   </head>
 
   <body>
@@ -37,6 +49,8 @@
         <span>Book Your Stay</span>
       </div>
 
+      <div id="statusAlert" class="alert"></div>
+
       <div class="service-layout">
         <div class="left-col">
           <div class="service-info">
@@ -48,60 +62,69 @@
                 line-height: 1.8;
               "
             >
-              F
+              Experience luxury and comfort. Select your preferred room type below, and our system will automatically assign you an available room.
             </p>
           </div>
 
           <div class="booking-widget-container">
             <div class="booking-widget">
               <h3 style="color: #fff">Booking Form</h3>
-              <form>
+              
+              <form action="submitBooking" method="POST">
                 <div class="form-group">
                   <label for="guest-name">Full Name</label>
                   <input
                     type="text"
+                    name="guest-name"
                     id="guest-name"
                     placeholder="Your Full Name"
                     required
                   />
                 </div>
+                
                 <div class="form-group">
                   <label for="guest-amount">Number of Guests</label>
                   <input
                     type="number"
+                    name="guest-amount"
                     id="guest-amount"
                     placeholder="Number of Guests"
                     min="1"
                     required
                   />
                 </div>
+
                 <div class="form-group">
                   <label for="room-type">Room Type</label>
-                  <select id="room-type" required class="form-control">
+                  <select name="room-type" id="room-type" required class="form-control">
                     <option value="">Select a room type</option>
-                    <option value="single">Single</option>
-                    <option value="double">Double</option>
-                    <option value="deluxe">Deluxe</option>
-                    <option value="suite">Suite</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Deluxe">Deluxe</option>
+                    <option value="Suite">Suite</option>
                   </select>
                 </div>
 
                 <div class="form-group">
                   <label for="checkin">Check-in Date</label>
-                  <input type="date" id="checkin" required />
+                  <input type="date" name="checkin" id="checkin" required />
                 </div>
+
                 <div class="form-group">
                   <label for="checkout">Check-out Date</label>
-                  <input type="date" id="checkout" required />
+                  <input type="date" name="checkout" id="checkout" required />
                 </div>
+
                 <div class="form-group">
                   <label for="special-request">Special Requests</label>
                   <textarea
+                    name="special-request"
                     id="special-request"
                     rows="4"
                     placeholder="Any special requests"
                   ></textarea>
                 </div>
+
                 <button type="submit" class="book-btn">Book Now</button>
               </form>
             </div>
@@ -131,5 +154,28 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Handle response messages from URL parameters
+      window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const alertBox = document.getElementById('statusAlert');
+
+        if (status === 'success') {
+          alertBox.innerText = "Success! Your room has been booked and is now occupied.";
+          alertBox.className = "alert alert-success";
+          alertBox.style.display = "block";
+        } else if (status === 'no_available_rooms') {
+          alertBox.innerText = "Sorry, no rooms of that type are currently available.";
+          alertBox.className = "alert alert-error";
+          alertBox.style.display = "block";
+        } else if (status === 'error') {
+          alertBox.innerText = "An error occurred. Please try again later.";
+          alertBox.className = "alert alert-error";
+          alertBox.style.display = "block";
+        }
+      };
+    </script>
   </body>
 </html>
